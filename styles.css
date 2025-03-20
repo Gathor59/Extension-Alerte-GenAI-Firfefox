@@ -1,18 +1,18 @@
 
 /* Style desktop par défaut (au centre) */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48rem) {
   #extension-notification {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 600px;
-    border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 10px 60px rgba(0,0,0,0.2);
+    max-width: 37.5rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.4), 0 0.625rem 3.75rem rgba(0, 0, 0, 0.2);
   }
 }
 
 /* Style mobile (en haut) */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 47.938rem) {
   #extension-notification {
     top: 0;
     left: 0;
@@ -29,28 +29,28 @@
 
 /* Style des boutons */
 #extension-notification button {
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  background-color: rgb(248, 134, 68);
+  background-color: #f88644;
   color: white;
   font-family: Arial, sans-serif;
-  font-size: 14px;
-  min-height: 44px;
+  font-size: 0.875rem;
+  min-height: 2.75rem;
 }
 
 /* Style des boutons au survol */
 #extension-notification button:hover {
-  background-color: rgb(220, 120, 60);
+  background-color: #dc783c;
 }
 
 /* Conteneur des boutons */
 .notification-buttons {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
 /* Support du mode sombre */
