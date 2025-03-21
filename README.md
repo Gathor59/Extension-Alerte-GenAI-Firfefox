@@ -19,6 +19,8 @@ Le code est géré est maintenu par moi même. Disclaimer : je ne suis pas déve
 
 Les icônes ont été réalisées par Flock, en plus des images d’illustrations des articles sur notre extension. 
 
+Raphaël d'[OnlineCreation](https://onlinecreation.pro/) a participé au développement de l’extension.
+
 ## Pourquoi la liste n’est pas publique ?
 
 C’est une question qui revient régulièrement, à juste titre. Jean-Marc s’est déjà exprimé sur le sujet : « nous ne rendons pas publique l'intégralité de la liste de ces sites, pas plus que celle des entreprises, pour plusieurs raisons. Nous ne voulons pas, d'une part, que cette base de données puisse aider ceux qui voudraient améliorer leurs générateurs d'articles automatisés, et qui se targuent de ne pas être reconnus comme GenAI ».
