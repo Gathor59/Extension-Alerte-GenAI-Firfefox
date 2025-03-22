@@ -393,6 +393,14 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   else if (message.action === "pageRevisited" && sender.tab) {
     // Vérifier l'URL à nouveau
     checkUrl(sender.tab.id, sender.tab.url);
+  } else if (message.action === 'checkURL' && message.url) {
+    console.log('Vérification de l\'URL:', message.url);
+    getCategoryOfUrl(message.url).then((x) => {
+      sendResponse(x);
+    }, () => {
+      console.log('Erreur lors de la catégorisation de l\'URL. Fallback.', message.url);
+      sendResponse(categories['normal']);
+    })
   }
   
   return Promise.resolve(undefined);
@@ -455,5 +463,61 @@ browser.tabs.onActivated.addListener(async (activeInfo) => {
   }
 });
 
+const categories = {
+  "genai": {
+    name: "genai",
+    longLabel: "Site GenAI",
+    shortLabel: "GenAI"
+  },
+  "amf": {
+    name: "amf",
+    longLabel: "Site sur la liste noire de l\'AMF",
+    shortLabel: "AMF"
+  },
+  "redflag": {
+    name: "redflag",
+    longLabel: "Red Flag Domain",
+    shortLabel: "Red Flag"
+  }
+}
+
+async function getCategoryOfUrl(url) {
+  try {
+    await initializeExtension();
+
+    const cleanedUrl = cleanUrl(url);
+    if (!cleanedUrl) {
+      return null;
+    }
+
+    const config = await storageGet('enabledLists');
+    const enabledLists = config.enabledLists || {
+      genai: true,
+      redflag: true,
+      amf: true
+    };
+
+    for (const [type, listConfig] of Object.entries(LIST_CONFIGS)) {
+      if (listConfig.type === 'plain' && enabledLists[type] !== false) {
+        if (plainLists[type] && plainLists[type].has(cleanedUrl)) {
+          return categories[type];
+        }
+      }
+
+      if (listConfig.type === 'bloom' && bloomFilter && enabledLists[type] !== false) {
+        if (bloomFilter.mightContain(cleanedUrl)) {
+          return categories[type];
+        }
+      }
+    }   
+
+  } catch (error) {
+    console.error('Erreur critique lors de la vérification URL:', error);
+  }  
+  
+  return null;
+}
+
 // Appeler initializeExtension au démarrage
 initializeExtension();
+
